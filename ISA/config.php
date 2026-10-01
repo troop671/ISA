@@ -33,7 +33,13 @@ $mysql_user =   "<MySQL User>";
 $mysql_passwd = "<MySQL Password>";
 $mysql_dbname = "<MySQL DB Name>";
 
-// Use Gmail account to email message
+/*
+|--------------------------------------------------------------------
+| Mail Settings
+|--------------------------------------------------------------------
+| Settings used to connect to your e-mail smart host.
+|
+*/
 $host = "<SMTP HOST URL or HOSTNAME>";
 $port = "465";
 $username = "<SMTP USERNAME>";
