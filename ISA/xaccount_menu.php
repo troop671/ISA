@@ -464,12 +464,6 @@ set_include_path("." . PATH_SEPARATOR . ($UserDir = dirname($_SERVER['DOCUMENT_R
                 //$to = "Advisor@Crew671BSA.org";
                 $to = $treas_email;
                 
-                // Use Gmail account to email message
-                $host = "ssl://smtp.dreamhost.com";
-                $port = "465";
-                $username = "ISA.Troop671@Troop671.com";
-                $password = "mstr0671";
-                
                 $headers = array ('From' => $from,
                   'To' => $to,
                   'Subject' => $subject,
