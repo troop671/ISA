@@ -1,0 +1,145 @@
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+time_stamp=<html>
+                       <head>
+                       <title>Carver, Richard</title>
+                       </head>
+                       <body bgcolor='FFFFFF'>
+                       <font face='arial'>
+                       <br>
+                       server timestamp:	Saturday June 30, 2012 at 11:20:12<br>
+                       <br>
+                       <table>
+                       <tr>
+                       <td><img src='http://www.rhift.com/boyscout/image_bin/fleur.jpg' height='40'></td><td valign='middle'><font size='+2' color='999999'><b>T R O O P &nbsp; 6 7 1</b></font></td>
+                       </tr>
+                       </table>
+                       </font>
+                       <br>: mail processing
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+====================
+sent_time=Array
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+====================
+sent_time= Saturday June 30, 2012 at 11:25:10
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 435, Function: 
+====================
+sent_time= Saturday June 30, 2012 at 11:28:59
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 436
+====================
+sent_time= Saturday June 30, 2012 at 16:48:47
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 436
+====================
+sent_time= Saturday June 30, 2012 at 16:50:50
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 436
+====================
+sent_time= Saturday June 30, 2012 at 16:50:57
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 437
+====================
+sent_time= Saturday June 30, 2012 at 22:6:24
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 438
+====================
+sent_time= Saturday June 30, 2012 at 22:8:8
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 437
+====================
+sent_time= Saturday June 30, 2012 at 22:12:37
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 437
+====================
+sent_time= Saturday June 30, 2012 at 22:14:46
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 437
+====================
+sent_time= Sunday July 1, 2012 at 12:33:18
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 437
+====================
+sent_time= Sunday July 1, 2012 at 12:53:32
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 437
+====================
+sent_time= Sunday July 1, 2012 at 13:1:40
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
+====================
+Mail Processing
+File: /home/troop671/public_html/ISA2.0/xaccount_menu.php, Line: 437
+====================
+sent_time= Sunday July 1, 2012 at 13:4:14
+treas_check=3 (# of treasurer users)
+treas_email=brad@rhift.com
+treas_email=Troop71Treasurer@comcast.net
+treas_email=TroopContact@Troop671BSA.org
+====================
