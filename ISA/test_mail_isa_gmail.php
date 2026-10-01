@@ -23,8 +23,8 @@ $phpmailer->Host       = "ssl://smtp.dreamhost.com"; // SMTP server
 $phpmailer->SMTPAuth   = true;                  // enable SMTP authentication
 $phpmailer->Port       = 465;          // set the SMTP port for the GMAIL server; 465 for ssl and 587 for tls
 //$phpmailer->Port       = 587;          // set the SMTP port for the GMAIL server; 465 for ssl and 587 for tls
-$phpmailer->Username   = "ISA.Troop671@Troop671.com"; // Gmail account username
-$phpmailer->Password   = "mstr0671";        // Gmail account password
+$phpmailer->Username   = "<SMTP USERNAME>"; // Gmail account username
+$phpmailer->Password   = "<SMTP PASSWORD>";        // Gmail account password
 
 $phpmailer->SetFrom('ISA.Troop671@Troop671.com', 'ISA.Troop671'); //set from name
 
