@@ -28,9 +28,9 @@
 | Settings used to connect to your MySQL database.
 |
 */
-$mysql_host =   "mysql.troop671.com";
-$mysql_user =   "troop671com_isa";
-$mysql_passwd = "c0ctyle0420";
-$mysql_dbname = "troop671com_isa";
+$mysql_host =   "<MySQL Server FQDN>";
+$mysql_user =   "<MySQL User>";
+$mysql_passwd = "<MySQL Password>";
+$mysql_dbname = "<MySQL DB Name>";
 
 ?>
