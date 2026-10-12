@@ -1,0 +1,25 @@
+{
+  "name": "troop671/isa",
+  "description": "Troop 671 Individual Scout Accounts",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": "~8.3.30",
+    "ext-mbstring": "*",
+    "ext-openssl": "*",
+    "ext-pdo_mysql": "*",
+    "ext-session": "*",
+    "phpmailer/phpmailer": "^7.1"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  },
+  "config": {
+    "platform": {
+      "php": "8.3.30"
+    },
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

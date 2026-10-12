@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+su dh_vpjbmy -c "/usr/local/php83/bin/php /home/dh_vpjbmy/troop671.com/ISA/bin/WriteHtaccess.php"
+exec apachectl -D FOREGROUND

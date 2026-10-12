@@ -1,0 +1,7 @@
+INSERT INTO `users` (`id`, `first`, `last`, `user_id`, `password_hash`, `email`, `balance`, `last_update`, `question`, `answer`, `notice`, `gm`, `level`, `locked`) VALUES
+(1, 'Pat', 'Treasurer', 'treasurer', 'fd244a8e7c5628b3134cf5ef793c79824c8fc7bf', 'treasurer@example.org', '0.00', '2026-01-01 10:00:00', 'Favorite knot?', 'bowline', '', 'Account balances are now up to date.', 'treasurer', 'no'),
+(2, 'Lee', 'Assistant', 'assistant', '5a4f80c8e63b9e3f678566ae52a0a2234477978d', 'assistant@example.org', '0.00', '2026-01-01 10:00:00', '', '', '', 'Account balances are now up to date.', 'treasurer', 'yes'),
+(3, 'Sam', 'Scout', 'scout', '15a1d88c536aac846a8440d7c31b03a367ccc508', 'scout@example.org', '125.50', '2026-02-01 10:00:00', 'First campout?', 'Philmont', 'Welcome to your ISA!', 'Account balances are now up to date.', 'user', 'no'),
+(4, 'Alex', 'Noquestion', 'noquestion', 'e5eca12454ecd01029fe16ad72c04554f9c3b572', 'noquestion@example.org', '40.00', '2026-02-01 10:00:00', '', '', '', 'Account balances are now up to date.', 'user', 'no'),
+(5, 'Jo', 'Locked', 'locked', '577d56b0a57144f7bd26b8c54408995c22331750', 'locked@example.org', '15.00', '2026-02-01 10:00:00', 'Pet?', 'Rex', '', 'Account balances are now up to date.', 'user', 'yes'),
+(6, 'Kim', 'Words', 'words', 'bec9aef0ecba04cfafc0a41339419e185843831f', 'words@example.org', 'Paid in full', '2026-02-01 10:00:00', 'Color?', 'green', '', 'Account balances are now up to date.', 'user', 'no');

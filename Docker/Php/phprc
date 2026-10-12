@@ -1,0 +1,8 @@
+zend_extension=opcache.so
+
+memory_limit = 768M
+error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT
+include_path = ".:/home/dh_vpjbmy/pear/share/pear"
+log_errors = 1
+error_log = /home/dh_vpjbmy/phperrlogs/php8.4.log
+pcre.jit = 0

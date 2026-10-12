@@ -1,0 +1,9 @@
+*
+!*.php
+!BSA_Logo.jpg
+!composer.json
+!composer.lock
+!src/
+!templates/
+!bin/
+!Docker/

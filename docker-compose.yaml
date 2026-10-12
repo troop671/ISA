@@ -1,0 +1,86 @@
+name: troop671-isa
+
+x-application-environment: &application-environment
+  ISA_DATABASE_HOST: ${ISA_DATABASE_HOST:?}
+  ISA_DATABASE_PORT: ${ISA_DATABASE_PORT:?}
+  ISA_DATABASE_NAME: ${ISA_DATABASE_NAME:?}
+  ISA_DATABASE_USER: ${ISA_DATABASE_USER:?}
+  ISA_DATABASE_PASSWORD: ${ISA_DATABASE_PASSWORD:?}
+  ISA_SMTP_HOST: ${ISA_SMTP_HOST:?}
+  ISA_SMTP_PORT: ${ISA_SMTP_PORT:?}
+  ISA_SMTP_ENCRYPTION: ${ISA_SMTP_ENCRYPTION:?}
+  ISA_SMTP_USER: ${ISA_SMTP_USER:?}
+  ISA_SMTP_PASSWORD: ${ISA_SMTP_PASSWORD:?}
+  ISA_MAIL_FROM_ADDRESS: ${ISA_MAIL_FROM_ADDRESS:?}
+  ISA_MAIL_FROM_NAME: ${ISA_MAIL_FROM_NAME:?}
+  ISA_TREASURER_ADDRESS: ${ISA_TREASURER_ADDRESS:?}
+  ISA_SESSION_IDLE_SECONDS: ${ISA_SESSION_IDLE_SECONDS:?}
+
+services:
+  mysql:
+    build:
+      context: .
+      target: database
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ISA_MYSQL_ROOT_PASSWORD:?}
+      MYSQL_DATABASE: ${ISA_DATABASE_NAME:?}
+      MYSQL_USER: ${ISA_DATABASE_USER:?}
+      MYSQL_PASSWORD: ${ISA_DATABASE_PASSWORD:?}
+    command:
+      - --sql-mode=NO_ENGINE_SUBSTITUTION
+      - --character-set-server=utf8mb3
+      - --collation-server=utf8mb3_unicode_ci
+      - --default-storage-engine=InnoDB
+      - --lower-case-table-names=0
+      - --max-allowed-packet=33554432
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    networks:
+      default:
+        aliases: [mysql.troop671.com]
+
+  smtp:
+    build:
+      context: .
+      target: smtp
+    environment:
+      MP_SMTP_BIND_ADDR: 0.0.0.0:465
+      MP_SMTP_TLS_CERT: /etc/mailpit/smtp.crt
+      MP_SMTP_TLS_KEY: /etc/mailpit/smtp.key
+      MP_SMTP_REQUIRE_TLS: "true"
+      MP_SMTP_AUTH: ${ISA_SMTP_USER:?}:${ISA_SMTP_PASSWORD:?}
+    ports:
+      - ${ISA_MAILPIT_PORT:?}:8025
+    networks:
+      default:
+        aliases: [smtp.dreamhost.com]
+
+  migrate:
+    build:
+      context: .
+      target: application
+    environment: *application-environment
+    user: dh_vpjbmy
+    command: ["/usr/local/php83/bin/php", "/home/dh_vpjbmy/troop671.com/ISA/bin/MigrateSchema.php"]
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  application:
+    build:
+      context: .
+      target: application
+    environment: *application-environment
+    ports:
+      - ${ISA_HTTP_PORT:?}:80
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      smtp:
+        condition: service_started
+    networks:
+      default:
+        aliases: [www.troop671.com]
