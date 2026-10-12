@@ -11,6 +11,12 @@ final class WriteHtaccess
   private const string ALLOWLIST = <<<'HTACCESS'
     Options -Indexes
     DirectoryIndex index.php
+    <IfModule mod_expires.c>
+      ExpiresActive Off
+    </IfModule>
+    Header always set Cache-Control "private, no-store, max-age=0"
+    Header always unset Expires
+    Header always unset Pragma
     Require all denied
     <If "%{REQUEST_URI} =~ m#^/ISA/(index\.php|login\.php|logout\.php|forgot_password\.php|xaccount_menu\.php|update_email\.php|treasurer_menu\.php|BSA_Logo\.jpg)?$#">
       Require all granted
