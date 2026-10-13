@@ -18,7 +18,7 @@ final class WriteHtaccess
     Header always unset Expires
     Header always unset Pragma
     Require all denied
-    <If "%{REQUEST_URI} =~ m#^/ISA/(index\.php|login\.php|logout\.php|forgot_password\.php|xaccount_menu\.php|update_email\.php|treasurer_menu\.php|BSA_Logo\.jpg)?$#">
+    <If "%{REQUEST_URI} =~ m#^/ISA(/(index\.php|login\.php|logout\.php|forgot_password\.php|xaccount_menu\.php|update_email\.php|treasurer_menu\.php|BSA_Logo\.jpg)?)?$#">
       Require all granted
     </If>
 
