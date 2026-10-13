@@ -155,7 +155,7 @@ Four wrong passwords in a row lock an account, as on the real site. To unlock ev
 
 `php bin/MigrateSchema.php` converts `users` to InnoDB and `utf8mb4`, makes `user_id` unique, and creates `account_updates`. Every step checks before it acts, so it can be run again at any time. It prints one JSON line per step.
 
-On the DreamHost host it must run once, before the new pages are deployed, with PHP 8.3 and all of the variables in [Environment variables](#environment-variables) set in its shell: `/usr/local/php83/bin/php ~/troop671.com/ISA/bin/MigrateSchema.php`. The old pages keep working on the migrated schema, because the migration changes only the storage engine, the character set and indexes, and adds a table. That is reasoned from the old code, not tested.
+On the DreamHost host it ran on 2026-10-12, before the new pages went live. To run it again, use PHP 8.3 with every variable in [Environment variables](#environment-variables) set in the shell: `/usr/local/php83/bin/php ~/troop671.com/ISA/bin/MigrateSchema.php`. The old pages also work on the migrated schema; this was tested locally before the live migration.
 
 ## Settings on the host
 
@@ -166,6 +166,70 @@ On the DreamHost host it must run once, before the new pages are deployed, with 
 3. It refuses, exits 1 and keeps the existing file when a value contains a double quote, a backslash, `${` or a character outside printable ASCII, because Apache would change such a value.
 4. It writes the file with mode `644`. On the host, `/home/dh_vpjbmy` is `710`, so other accounts cannot read it, and Apache does not serve `.htaccess` files.
 5. The local container runs it at every start, and its Apache has no `PassEnv`, so the local stack receives its settings the same way the host does.
+
+## Running on DreamHost
+
+### Where things are
+
+| Path on `iad1-shared-e1-33.dreamhost.com` | What it holds |
+|---|---|
+| `~/troop671.com/ISA` | The live site: pages, `src/`, `templates/`, `bin/`, `vendor/` and the generated `.htaccess` |
+| `~/ISA-previous-20261013` | The old site, moved out of the website on 2026-10-13. It still holds the old logs, `config.php`, the SQL dump and `phpinfo.php`. |
+| `~/ISA-backup-20261012`, `~/ISA-backup-20261013` | A database dump and an archive of the old site from each deployment day. Readable only by `dh_vpjbmy`. |
+| `~/logs/troop671.com/https/error.log` | Apache's error log. Site failures appear as one JSON object after `mod_fcgid: stderr:`. |
+
+The `dh_vpjbmy` home directory, these folders and the database hold personal data and passwords. Do not copy them anywhere public.
+
+### What the site depends on
+
+| Dependency | Requirement | If it changes |
+|---|---|---|
+| PHP | 8.3, selected for `troop671.com` in the DreamHost panel. The site runs on 8.3.30 as CGI/FastCGI. | Test the new version locally first by changing `PHP_VERSION` and `PHP_SHA256` in the `Dockerfile`. |
+| MySQL | 8.0 at `mysql.troop671.com`, database `troop671com_isa` | The `ISA_DATABASE_*` settings must match. |
+| Mail | `smtp.dreamhost.com`, port 465, TLS, the `ISA.Troop671@Troop671.com` mailbox | The `ISA_SMTP_*` settings must match. |
+| Cloudflare | A Cache Rule that bypasses the cache when the URI starts with `/ISA/`, placed **after** "Cache everything". When rules conflict, the last matching rule wins. | If Cloudflare caches ISA pages, sign-in fails for everyone and one person's page can be shown to another. Check the `cf-cache-status` response header: it must be `DYNAMIC` or `BYPASS`, never `HIT`. |
+
+### Change a setting
+
+Each setting is one `SetEnv` line in `~/troop671.com/ISA/.htaccess`, for example `SetEnv ISA_SMTP_PASSWORD "…"`.
+
+1. Edit that line and keep the double quotes. A value cannot contain a double quote, a backslash or `${`.
+2. The change applies from the next page load.
+3. Running `bin/WriteHtaccess.php` rewrites the whole file from the shell's environment, so hand edits are lost unless the same values are exported first.
+
+### Deploy a new version
+
+These steps repeat the 2026-10-13 deployment. That deployment ran steps 1 to 3 as written; steps 4 to 7 are the manual form of what its script did, and have not been run by hand. Replace `YYYYMMDD` with the date.
+
+1. Build the image locally: `docker compose --env-file Local.env build application`.
+2. Copy the site out of the image, then remove the Docker files from the copy:
+   ```
+   id=$(docker create troop671-isa-application:latest)
+   docker cp "$id":/home/dh_vpjbmy/troop671.com/ISA ./release
+   docker rm "$id"
+   rm -r ./release/Docker
+   ```
+3. Upload it to a folder the website does not serve, and remove the `._*` files that macOS `tar` adds:
+   ```
+   ssh dh_vpjbmy@iad1-shared-e1-33.dreamhost.com 'mkdir ~/ISA-release'
+   tar -C release -czf - . | ssh dh_vpjbmy@iad1-shared-e1-33.dreamhost.com 'tar -xzf - -C ~/ISA-release && find ~/ISA-release -name "._*" -delete'
+   ```
+4. On the host, copy the settings across: `cp ~/troop671.com/ISA/.htaccess ~/ISA-release/`. If the new version changes `src/WriteHtaccess.php`, run the new `bin/WriteHtaccess.php` in `~/ISA-release` instead, with every variable exported.
+5. Back up the database into a new folder: `mkdir -m 700 ~/ISA-backup-YYYYMMDD`, then `mysqldump -h mysql.troop671.com -u troop671com_isa -p --no-tablespaces troop671com_isa > ~/ISA-backup-YYYYMMDD/database.sql`.
+6. If the new version changes the schema, run `bin/MigrateSchema.php` from `~/ISA-release`, as in [Schema migration](#schema-migration).
+7. Switch: `mv ~/troop671.com/ISA ~/ISA-previous-YYYYMMDD && mv ~/ISA-release ~/troop671.com/ISA`.
+8. Check `https://www.troop671.com/ISA/`: the sign-in page loads, a made-up user ID shows "Wrong user id or password.", and `error.log` gains no JSON lines.
+
+To roll back, swap the folders: `mv ~/troop671.com/ISA ~/ISA-release && mv ~/ISA-previous-YYYYMMDD ~/troop671.com/ISA`. Restore the database from the dump only if the new version changed data.
+
+### Accounts and passwords
+
+| Task | How |
+|---|---|
+| Unlock an account | Four wrong passwords in one browser session lock an account. A Treasurer opens the account with **edit**, sets **locked** to **no**, and selects **update**. |
+| Reset a password | A Treasurer types it in **New password** in the same form. A Scout can also use **Forgot Password?** if the account has a security question. |
+| Set a password in the database | `UPDATE users SET locked = 'no', password_hash = SHA1('new password') WHERE user_id = '…';` The site accepts the SHA-1 value once and replaces it with an Argon2id hash at the next sign-in. |
+| See who changed an account | Every account a Treasurer creates or updates adds a row to `account_updates`: the time, the Treasurer's `users.id`, and the values saved. |
 
 ## Environment variables
 
