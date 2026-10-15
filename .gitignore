@@ -29,3 +29,6 @@
 !/Docker/Php/php83-cgi
 !/Docker/Php/phprc
 !/Docker/Php/start-application
+
+# Never commit macOS Finder metadata.
+.DS_Store
